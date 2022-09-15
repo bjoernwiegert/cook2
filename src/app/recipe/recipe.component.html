@@ -1,0 +1,89 @@
+<div class='card'>
+    <div cass='card-header'>
+      Recipe List
+    </div>
+    <div class='card-body'>
+      <div class='row'>
+        <div class='col-md-2'>Filter by:</div>
+        <div class='col-md-4'>
+          <input type='text' 
+          [(ngModel)]='listFilter'/>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-6'>
+          <h4>Filter by: {{listFilter}} </h4>
+        </div>
+      </div>
+      <div class='table-responsive'>
+        <table class='table'
+        *ngIf="recipes.length">
+          <thead>
+            <tr>
+              <th>
+                <button class='btn btn-primary'
+                  (click)="toggleImage()">
+                  {{showImage ? 'Hide' :'Show'}} Image
+                </button>
+              </th>
+              <th>Recipe</th>
+              <th>Description</th>
+              <th>Rating</th>
+              <th>Done</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let recipe of filteredRecipes'>
+                <td><img    *ngIf="showImage"
+                            [src]="recipe.imageUrl"
+                            [title]="recipe.name"
+                            [style.width.px]="imageWidth"
+                            [style.margin.px]="imageMargin"
+                            [style.border-radius.px]="4"
+                            ></td>
+                            <td>
+                              <a [routerLink]="['/recipes', recipe.recipeId]">
+                                {{ recipe.name }}
+                              </a>
+                            </td>
+                <td>{{recipe.description}}</td>
+                <td>{{recipe.rating}}</td>
+                <td>{{recipe.done}}</td>
+                <td><button  class="btn btn-warning"
+                  (click)="deleteEntry(recipe.recipeId)">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="container border border-dark rounded">
+          <form class="m-3" (ngSubmit)="onSubmit($event)">
+            <div class="input-group mt-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Recipe</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="newrecipe" value="">
+            </div>
+            <div class="input-group mt-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="newdescription" value="">
+            </div>
+            <div class="input-group mt-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Rating</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="newrating" value="">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input mt-3" type="checkbox" value="false" id="flexCheckDefault" name="newdone">
+              <label class="form-check-label mt-3" for="flexCheckDefault">
+                Recipe Done
+              </label>
+            </div>            
+            <input type="submit" value="Submit"  class="btn btn-primary m-3"> 
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
