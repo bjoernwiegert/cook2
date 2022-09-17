@@ -24,7 +24,7 @@ import { RecipeService } from './recipe.services';
       {path: 'home', component: HomeComponent},
       {path: 'recipes/:id', component: RecipedetailComponent}
     ]),
-    RecipeService
+ //   RecipeService
   ],
   providers: [],
   bootstrap: [AppComponent]

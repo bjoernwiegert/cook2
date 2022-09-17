@@ -7,7 +7,5 @@ import { IRecipe } from "./recipe/recipe";
     }
 )
 export class RecipeService{
-    getRecipes(): IRecipe[] {
-     return []
-    }
+
 }
