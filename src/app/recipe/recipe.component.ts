@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IRecipe } from './recipe';
-import recipesJson from './recipes.json';
-import { RouterModule } from '@angular/router';
+import { RecipeService } from '../recipe.services';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'cb-recipe',
@@ -10,14 +10,14 @@ import { RouterModule } from '@angular/router';
 })
 export class RecipeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private recipeService: RecipeService) { }
 
   pageTitle: string = 'Recipes List'
   imageWidth: number = 70;
   imageMargin: number = 2;
-  recipes: IRecipe[] = recipesJson;
   showImage: boolean = false;
-
+  sub!:Subscription
+  recipes: IRecipe[] = [];
   private _listFilter: string = '';
   filteredRecipes: IRecipe[] = [];
 
@@ -62,7 +62,12 @@ export class RecipeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listFilter = ''
+    this.sub=this.recipeService.getRecipes().subscribe({
+      next: recipes => {
+        this.recipes= recipes;
+        this.filteredRecipes = this.recipes;
+      }
+    });
   }
 
 }
