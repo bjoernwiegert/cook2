@@ -9,15 +9,17 @@ import { Observable, tap, catchError, throwError } from "rxjs";
     }
 )
 export class RecipeService{ 
-    recipeURL = 'recipe/recipes.json'
+    recipeURL = 'app/recipe/recipes.json'
 
 
-    constructor(private http: HttpClient){}
+    constructor(
+        private http: HttpClient
+    ){}
 
     getRecipes(): Observable<IRecipe[]> {
        return this.http.get<IRecipe[]>(this.recipeURL).pipe(
         tap(data => console.log('All: ', JSON.stringify(data))),
-       catchError(this.handleError)
+        catchError(this.handleError)
        );
     }
 

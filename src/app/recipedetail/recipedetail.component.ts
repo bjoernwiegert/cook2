@@ -10,12 +10,15 @@ import { RecipeService } from '../recipe.services';
 export class RecipedetailComponent implements OnInit {
  
   private _recipeService: any;
+  snapshot: any;
 
   constructor(recipeService: RecipeService) {
       this._recipeService = recipeService;
    }
 
   ngOnInit(): void {
+    const id = Number(this.snapshot.paraMap.get('id'));
+    //this.recipe = this.route.snapshot.data.recipe;
   }
 
 }

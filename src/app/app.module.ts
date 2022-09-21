@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -8,6 +8,7 @@ import { RecipeComponent } from './recipe/recipe.component';
 import { RecipedetailComponent } from './recipedetail/recipedetail.component';
 import { HomeComponent } from './home/home.component';
 import { RecipeService } from './recipe.services';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,8 @@ import { RecipeService } from './recipe.services';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
       {path: 'recipes', component: RecipeComponent},
       {path: 'home', component: HomeComponent},

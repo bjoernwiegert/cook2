@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IRecipe } from './recipe';
 import { RecipeService } from '../recipe.services';
 import { Subscription } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'cb-recipe',
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.scss']
 })
-export class RecipeComponent implements OnInit {
+export class RecipeComponent implements OnInit,OnDestroy {
 
   constructor(private recipeService: RecipeService) { }
 
@@ -20,6 +21,7 @@ export class RecipeComponent implements OnInit {
   recipes: IRecipe[] = [];
   private _listFilter: string = '';
   filteredRecipes: IRecipe[] = [];
+  errorMessage: string = '';
 
   get listFilter(): string {
     return this._listFilter
@@ -62,12 +64,16 @@ export class RecipeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sub=this.recipeService.getRecipes().subscribe({
+    this.sub = this.recipeService.getRecipes().subscribe({
       next: recipes => {
-        this.recipes= recipes;
+        this.recipes= recipes,
         this.filteredRecipes = this.recipes;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();    
   }
 
 }
